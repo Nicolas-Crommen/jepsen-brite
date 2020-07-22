@@ -18,6 +18,10 @@ h1 {
   margin: auto;
 }
 
+.login-page span {
+  cursor: pointer;
+}
+
 .login-page form span:hover {
   cursor: pointer;
 }
