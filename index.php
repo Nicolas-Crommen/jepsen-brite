@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 <?php
 include "./includes/templates/header.php";
 ?>
@@ -9,12 +9,4 @@ include "./includes/templates/header.php";
 
 <?php
 include "./includes/templates/footer.php";
-=======
-<p>Hello World !!</p>
-
-<?php
-
-echo 2+2;
-
->>>>>>> e8a60f6f449f7154ce3662a30013749fd76e7ffe
 ?>
