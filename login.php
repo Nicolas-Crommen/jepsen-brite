@@ -21,21 +21,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $errorsForm[] = "<div class='alert alert-danger text-center'> password must be larger than 5 , must contain charachters </div>";
     }
 
-    if (empty($pass) || strlen($pass > 5)) {
-        $errorsForm[] = "<div class='alert alert-danger text-center'> password must be larger than 5 , must contain charachters </div>";
-    }
+
     if ($pass != $secPass) {
         $errorsForm[] = "<div class='alert alert-danger text-center'>Password not Mathc</div>";
     }
 
 
-    echo (sizeof($errorsForm));
+
+    /*is l'array d'erreurs est vide on va inserer le user dans la BD*/
     if (sizeof($errorsForm) == 0) {
 
-        $query = $con->prepare("INSERT INTO  users(email , nickname ,password ,avatar) value (? ,? ,? ,?)");
-        $query->execute([$email, $userName, sha1($pass), "test"]);
-
-        header("location:index.php");
+        $query = $con->prepare("SELECT nickname FROM users WHERE nickname = ?");
+        $query->execute([$userName]);
+        $row = $query->rowCount();
+        if ($row > 0) {
+            echo "Sorry this user is already exist";
+        } else {
+            $query = $con->prepare("INSERT INTO  users(email , nickname ,password ,avatar) value (? ,? ,? ,?)");
+            $query->execute([$email, $userName, sha1($pass), "test"]);
+            header("location:index.php");
+        }
+        /*Sinon on affiche les erreurs*/
     } else {
 
         foreach ($errorsForm as $error) {
@@ -43,12 +49,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 }
-
-
-
-
-
-
 
 
 
