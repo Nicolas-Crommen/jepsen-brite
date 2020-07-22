@@ -1,0 +1,27 @@
+body {
+  position: relative;
+  height: 100vh;
+}
+.upper-bar {
+  background-color: #fff;
+  padding: 15px;
+}
+
+h1 {
+  color: #ccc;
+  font-size: 60px;
+  margin-bottom: 20px;
+}
+
+.login-page form {
+  max-width: 380px;
+  margin: auto;
+}
+
+.login-page form span:hover {
+  cursor: pointer;
+}
+
+.login-page form input {
+  margin-bottom: 10px;
+}
