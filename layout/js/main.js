@@ -2,8 +2,8 @@ const btnLogin = document.querySelector(".login-page .login-btn");
 const btnSignUp = document.querySelector(".login-page .singup-btn");
 const formLogn = document.querySelector(".login-page .login");
 const formSignup = document.querySelector(".login-page .signup");
-formSignup.style.display = "none";
-btnLogin.style.color = "#337ab7";
+formLogn.style.display = "none";
+btnSignUp.style.color = "#5cb85c";
 
 btnLogin.addEventListener("click", () => {
   formSignup.style.display = "none";

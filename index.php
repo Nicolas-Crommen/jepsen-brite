@@ -3,7 +3,7 @@ include "./includes/templates/header.php";
 ?>
 
 
-<p class="text-center">Welcole in the home Pagae</p>
+<p class="text-center">vous etes connecté</p>
 
 
 <?php
