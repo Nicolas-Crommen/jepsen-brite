@@ -8,13 +8,16 @@ die('Erreur : ' . $e -> getMessage() );
 }
 	
 if (isset($_POST['title']) AND isset($_POST['description']) AND isset($_POST['category'])) {
-	
+	echo $_POST['title'] . $_POST['description'] . $_POST['category'];
 
 
 	$req = $bdd -> prepare('INSERT INTO events(title,author,description,category) VALUES(?, ?, ?, ?)');
+	echo 'pass';
 
-	$req -> execute(array($_POST['title'], 1, $_POST['description'], $_POST['category']));
+	$req -> execute(array($_POST['title'], 1,$_POST['description'], $_POST['category']));
 
+	echo $req -> rowCount();
+	
 	echo "Your event has been added to our database";
 }
 else
