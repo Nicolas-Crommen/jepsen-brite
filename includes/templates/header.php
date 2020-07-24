@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,15 +10,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./layout/css/bootstrap.min.css">
     <link rel="stylesheet" href="./layout/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
     <title>Document</title>
 </head>
 
 <body>
 
-
     <div class="upper-bar">
         <div class="container">
-            <a href="login.php"><span class="pull-right">Login/Sign-up</span></a>
+
+            <?php if (isset($_SESSION['userid'])) { ?>
+                <a href="logout.php"><span class="pull-right">Logout</span></a>
+            <?php } else { ?>
+                <a href="login.php"><span class="pull-right">Login/Sign-up</span></a>
+            <?php } ?>
+
         </div>
     </div>
 
@@ -31,27 +41,16 @@
                 <a class="navbar-brand" href="#">Jepsen Brite</a>
             </div>
 
-
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
 
-                    <li><a href="index.php">Hoem</a></li>
+                    <li><a href="index.php">Home</a></li>
                     <li><a href="#">link</a></li>
                     <li><a href="#">Link</a></li>
                     <li><a href="#">Link</a></li>
-
-                </ul>
-
-                <ul class="nav navbar-nav navbar-right">
-                    <!--<li><a href="#">Hello username</a></li>-->
-                    <!--<li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">userName <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Edit profile</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">Logout</a></li>
-                        </ul>
-                    </li>-->
+                    <?php if (isset($_SESSION['userid'])) { ?>
+                        <li><a class="profile-link" href="profile.php"><?php echo strtoupper($_SESSION["nickname"])  ?></a></li>
+                    <?php } ?>
                 </ul>
             </div>
         </div>

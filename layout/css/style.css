@@ -2,6 +2,11 @@ body {
   position: relative;
   height: 100vh;
 }
+
+.navbar {
+  border-radius: 0;
+}
+
 .upper-bar {
   background-color: #fff;
   padding: 15px;
@@ -28,4 +33,49 @@ h1 {
 
 .login-page form input {
   margin-bottom: 10px;
+}
+
+.profile-link {
+  color: #337ab7 !important;
+}
+
+.edit h2 {
+  margin-bottom: 15px;
+}
+
+.edit .form-edit {
+  max-width: 400px;
+  margin: auto;
+}
+
+.form-group {
+  position: relative;
+}
+
+form i {
+  position: absolute;
+  top: 10px;
+  right: 17px;
+}
+
+.information ul {
+  padding: 0;
+  margin: 0;
+}
+
+.information ul li {
+  padding: 10px;
+}
+
+.information ul li:nth-child(odd) {
+  background-color: #eee;
+}
+
+.information ul li span {
+  display: inline-block;
+  width: 130px;
+}
+
+.information ul i {
+  padding: 10px;
 }

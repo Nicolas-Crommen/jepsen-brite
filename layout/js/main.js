@@ -2,6 +2,7 @@ const btnLogin = document.querySelector(".login-page .login-btn");
 const btnSignUp = document.querySelector(".login-page .singup-btn");
 const formLogn = document.querySelector(".login-page .login");
 const formSignup = document.querySelector(".login-page .signup");
+const confirm = document.querySelector(".confirm");
 formLogn.style.display = "none";
 btnSignUp.style.color = "#5cb85c";
 
@@ -19,7 +20,25 @@ btnSignUp.addEventListener("click", () => {
   btnLogin.style.color = "#ccc";
 });
 
-console.log(btnLogin);
-console.log(btnSignUp);
-console.log(formLogn);
-console.log(formSignup);
+/*Show password*/
+
+let eye = document.querySelector(".form-group i");
+let passLogin = document.querySelector(".pass-login");
+
+eye.addEventListener("click", () => {
+  console.log(passLogin.type);
+
+  if (passLogin.type == "password") {
+    passLogin.setAttribute("type", "text");
+    eye.setAttribute("class", "fas fa-eye");
+  } else {
+    passLogin.setAttribute("type", "password");
+    eye.setAttribute("class", "fas fa-eye-slash");
+  }
+});
+
+document.getElementById("btnDelete").addEventListener("click", () => {
+  alert("Do you want really delete your account");
+});
+
+console.log(confirm);
