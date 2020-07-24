@@ -6,10 +6,10 @@ include "./includes/templates/header.php";
 	<h1 class="text-center">Create event</h1>
 	<form method="post" action="event_form.php">
 		<p>
-			<input class="form-control" type="text" name="title" autocomplete="off" placeholder="Give your event a title" />
+			<input class="form-control" type="text" name="title" autocomplete="off" placeholder="Give your event a title" required="required" />
 		</p>
 		<p>
-			<textarea class="form-control" name="description" rows="8" cols="45" autocomplete="off" placeholder="Explain what will take place"></textarea>
+			<textarea class="form-control" name="description" rows="8" cols="45" autocomplete="off" placeholder="Explain what will take place" required="required"></textarea>
 		</p>
 		<p>In which category would you like your event to be referenced ?
 			<select class="form-control" name="category">

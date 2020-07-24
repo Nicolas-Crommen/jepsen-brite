@@ -35,8 +35,8 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
 
-                    <li><a href="index.php">Hoem</a></li>
-                    <li><a href="#">link</a></li>
+                    <li><a href="index.php">Home</a></li>
+                    <li><a href="event_form.php">Add my event</a></li>
                     <li><a href="#">Link</a></li>
                     <li><a href="#">Link</a></li>
 

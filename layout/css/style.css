@@ -25,3 +25,14 @@ h1 {
 .login-page form input {
   margin-bottom: 10px;
 }
+
+#event-item {
+  background-color: #74BEDB;
+  margin: 5px;
+  border-radius: 5px;
+  /*border: solid black 1px;*/
+}
+
+.events-grid {
+  margin: auto;
+}
