@@ -79,3 +79,17 @@ form i {
 .information ul i {
   padding: 10px;
 }
+
+#event-item {
+  background-color: #74BEDB;
+  margin: 5px;
+  border-radius: 5px;
+  /*border: solid black 1px;*/
+}
+
+.events-grid {
+  margin: auto;
+  align-items: center;
+  justify-content: space-around;
+}
+

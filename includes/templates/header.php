@@ -46,6 +46,7 @@ session_start();
 
                     <li><a href="index.php">Home</a></li>
                     <li><a href="#">link</a></li>
+                    <li><a href="event_form.php">Add my event</a></li>
                     <li><a href="#">Link</a></li>
                     <li><a href="#">Link</a></li>
                     <?php if (isset($_SESSION['userid'])) { ?>
