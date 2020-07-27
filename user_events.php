@@ -1,9 +1,7 @@
 
 <?php
 include "./includes/templates/header.php";
-include "connect.php";
 include "./includes/func/functions.php";
-
 ?>
 
 <?php
@@ -17,9 +15,15 @@ if (isset($_SESSION['userid'])) {
 
 <?php
 
-$lst = $con -> prepare('SELECT * FROM events ORDER BY "date" DESC LIMIT 12');
+try {
+$bdd = new PDO('mysql:host=localhost;dbname=jepsen-brite-db;charset=utf8','root','root');
+} catch (Exception $e) {
+die('Erreur : ' . $e -> getMessage() );
+}
 
-$lst->execute();
+$lst = $bdd -> prepare('SELECT * FROM events WHERE author=? ORDER BY "date" DESC');
+
+$lst->execute(array($_SESSION["userid"]));
 $donnees=$lst->fetchAll();
 ?>
 
@@ -30,6 +34,9 @@ $donnees=$lst->fetchAll();
 		<h5 class="text-center"> <?php echo $item['time']?></h5>
 		<h6 class="text-center"> <?php echo $item['category']?></h6>
 		<p class="text-center">Decription : <?php echo $item['description']?></p>
+		<a class="btn btn-success text-center btn-block" href="">Edit</a>
+		<a class="btn btn-danger text-center btn-block" href="">Delete</a>
+
 	</div>
 
 <?php

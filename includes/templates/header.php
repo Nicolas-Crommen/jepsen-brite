@@ -45,8 +45,12 @@ session_start();
                 <ul class="nav navbar-nav navbar-right">
 
                     <li><a href="index.php">Home</a></li>
-                    <li><a href="#">link</a></li>
-                    <li><a href="event_form.php">Add my event</a></li>
+                    <?php if (isset($_SESSION['userid'])) { ?>
+                        <li><a class="profile-link" href="user_events.php">My events</a></li>
+                    <?php } ?>
+                    <?php if (isset($_SESSION['userid'])) { ?>
+                        <li><a class="profile-link" href="event_form.php">Add my event</a></li>
+                    <?php } ?>
                     <li><a href="#">Link</a></li>
                     <li><a href="#">Link</a></li>
                     <?php if (isset($_SESSION['userid'])) { ?>
