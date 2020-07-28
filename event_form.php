@@ -39,7 +39,7 @@ if (isset($_POST['title']) AND isset($_POST['description']) AND isset($_POST['ca
 
 	$req -> execute(array($_POST['title'], $_SESSION['userid'],$_POST['description'], $_POST['category'], 'image.com'));
 
-	echo '<p align="center" color="green">Your event has been added to our database</p>';
+	echo '<p class="" align="center" color="green">Your event has been added to our database</p>';
 }
 else
 {

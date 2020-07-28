@@ -3,7 +3,6 @@
 include "./includes/templates/header.php";
 include "connect.php";
 include "./includes/func/functions.php";
-
 ?>
 
 <?php
@@ -13,13 +12,11 @@ if (isset($_SESSION['userid'])) {
 ?>
 
 
-<p class="text-center">Welcome on the home Page ! Take a look at our latest events.</p>
-
 <?php
 
-$lst = $con -> prepare('SELECT * FROM events ORDER BY "date" DESC LIMIT 12');
+$lst = $con -> prepare('SELECT * FROM events WHERE id=?');
 
-$lst->execute();
+$lst->execute(array($_GET['id']));
 $donnees=$lst->fetchAll();
 ?>
 
@@ -30,12 +27,15 @@ $donnees=$lst->fetchAll();
 		<h5 class="text-center"> <?php echo $item['time']?></h5>
 		<h6 class="text-center"> <?php echo $item['category']?></h6>
 		<p class="text-center">Decription : <?php echo $item['description']?></p>
+		<p color="red"><strong>Are you sure this event has to be deleted ?</strong></p>
+		<a class="btn btn-danger text-center btn-block" href="">Delete</a> <a class="btn btn-info text-center btn-block" href="">Cancel</a>
 	</div>
 
 <?php
 }
 ?>
 </div>
+
 
 <?php
 include "./includes/templates/footer.php";
