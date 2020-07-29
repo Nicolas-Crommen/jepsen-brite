@@ -7,3 +7,9 @@ function isExist($data, $tableName, $value)
     $stmt->execute([$value]);
     return $stmt->rowCount() > 0;
 }
+
+
+function formatDate($date)
+{
+    return date("D\  d-M-Y H\h i\m ", strtotime($date));
+}

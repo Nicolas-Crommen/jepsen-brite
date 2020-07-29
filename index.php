@@ -1,41 +1,55 @@
-
 <?php
 include "./includes/templates/header.php";
-include "connect.php";
 include "./includes/func/functions.php";
+include "connect.php";
+
+
+$stmt = $con->prepare("select * from events ev join users u on ev.author = u.id join categor ca on ca.id_category = ev.id_category ");
+$stmt->execute();
+$events = $stmt->fetchAll();
+
+
 
 ?>
 
-<?php
-if (isset($_SESSION['userid'])) {
-    echo "Hello, " . $_SESSION['nickname'];
-}
-?>
 
+<section class="events">
+	<div class="container">
+		<h1>Events</h1>
+		<div class="row">
+			<?php
+			foreach ($events as $event) {
+			?>
+				<div class="col-sm-4">
+					<div class="event">
+						<div class="over">
+							<p class="text-center"><?php echo $event['title'] ?></p>
+							<a class="showBtn btn btn-info" href="event_show.php?do=showDatails&eventID=<?php echo $event["id_event"] ?>">More details +</a>
+						</div>
+						<div class="img-container">
+							<img src="layout/images/event.JPG">
+						</div>
+						<ul class="info-event list-unstyled">
+							<li> <strong> category : <?php echo $event['name'] ?></strong></li>
 
-<p class="text-center">Welcome on the home Page ! Take a look at our latest events.</p>
+							<li class="author">created by <?php echo $event['nickname'] ?> </li>
+							<li class="date-event"><?php echo formatDate($event['date_debut']) ?> </li>
 
-<?php
+						</ul>
+					</div>
+				</div>
+			<?php } ?>
 
-$lst = $con -> prepare('SELECT * FROM events ORDER BY "date" DESC LIMIT 12');
-
-$lst->execute();
-$donnees=$lst->fetchAll();
-?>
-
-<div class="events-grid">
-<?php foreach ($donnees as $item) { ?>
-	<div class="col-xs-6 col-md-3" id="event-item">
-		<h4 class="text-center"> <?php echo $item['title']?></h4>
-		<h5 class="text-center"> <?php echo $item['time']?></h5>
-		<h6 class="text-center"> <?php echo $item['category']?></h6>
-		<p class="text-center">Decription : <?php echo $item['description']?></p>
+		</div>
 	</div>
 
+
+</section>
+
+
 <?php
-}
+
 ?>
-</div>
 
 <?php
 include "./includes/templates/footer.php";
