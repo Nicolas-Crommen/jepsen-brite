@@ -9,7 +9,7 @@ include "./includes/func/functions.php";
 if (isset($_SESSION['userid'])) {
 
 // Application des modifs
-	if (isset($_POST['title']) AND isset($_POST['description']) AND isset($_POST['category']) AND isset($_POST['time'])) {
+	if (isset ($_GET['id']) AND isset($_POST['title']) AND isset($_POST['description']) AND isset($_POST['category']) AND isset($_POST['time'])) {
 
 	$edt = $con -> prepare('UPDATE events SET title=?, description=?, category=?, `time`=? WHERE id=?)');
 	$edt -> execute(array($_POST['title'], $_POST['description'], $_POST['category'], $_POST['time'], $_GET['id']));
