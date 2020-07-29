@@ -18,14 +18,14 @@ if (isset($_SESSION['userid'])) { ?>
 				<textarea class="form-control" name="description" rows="8" cols="45" autocomplete="off" placeholder="Explain what will take place" required="required"></textarea>
 			</p>
 			<p>In which category would you like your event to be referenced ?
-				<select class="form-control" name="category">
-					<option value="" selected disabled hidden>Choose here</option>
-					<option value="concert">Concert</option>
-					<option value="expo">Exhibition</option>
-					<option value="cinema">Cinema</option>
-					<option value="talk">Talk</option>
-					<option value="party">Party</option>
-					<option value="other">Other</option>
+				<select class="form-control" name="id_category">
+					<?php
+					$categor = $con -> prepare('SELECT * FROM categor');
+					$categor -> execute();
+					$cats = $categor -> fetchAll();
+					foreach ($cats as $cat) {
+						echo '<option value="' . $cat[id_category] . '">'.$cat[name].'</option>';
+					}?>
 				</select>
 			</p>
 			<input class="btn btn-info btn-block" type="submit" name="submit">
@@ -34,10 +34,10 @@ if (isset($_SESSION['userid'])) { ?>
 
 	<?php
 		
-	if (isset($_POST['title']) AND isset($_POST['description']) AND isset($_POST['category']) AND isset($_POST['time'])) {
+	if (isset($_POST['title']) AND isset($_POST['description']) AND isset($_POST['id_category']) AND isset($_POST['time'])) {
 
-		$req = $con -> prepare('INSERT INTO events(title,author,description,category,image,`time`) VALUES(?, ?, ?, ?, ?, ?)');
-		$req -> execute(array($_POST['title'], $_SESSION['userid'],$_POST['description'], $_POST['category'], 'image.com', $_POST['time']));
+		$req = $con -> prepare('INSERT INTO events(title,author,description,id_category,image,`time`) VALUES(?, ?, ?, ?, ?, ?)');
+		$req -> execute(array($_POST['title'], $_SESSION['userid'],$_POST['description'], $_POST['id_category'], 'image.com', $_POST['time']));
 
 		echo '<p class="" align="center" color="green">Your event has been added to our database</p>';
 	}

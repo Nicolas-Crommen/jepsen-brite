@@ -9,10 +9,11 @@ include "./includes/func/functions.php";
 if (isset($_SESSION['userid'])) {
 
 // Application des modifs
-	if (isset($_POST['title']) AND isset($_POST['description']) AND isset($_POST['category']) AND isset($_POST['time'])) {
-
-	$edt = $con -> prepare('UPDATE events SET title=?, description=?, category=?, `time`=? WHERE id=?)');
-	$edt -> execute(array($_POST['title'], $_POST['description'], $_POST['category'], $_POST['time'], $_GET['id']));
+	if (isset ($_GET['id']) AND isset($_POST['title']) AND isset($_POST['description']) AND isset($_POST['category']) AND isset($_POST['time'])) {
+var_dump($_POST);
+	$edt = $con -> prepare('UPDATE events SET title=?, author=?, description=?, category=?, `time`=?, image=? WHERE id=?');
+	$edt -> execute(array($_POST['title'], $_SESSION["userid"], $_POST['description'], $_POST['category'], $_POST['time'], 'image.com', $_GET['id']));
+	//$edt -> execute(array('test3', 'retst3', 'cinema', date('Y-m-d','2020-08-04'), 'image.com', intval('28')));
 
 	echo '<p class="" align="center" color="green">Your event has been modified</p>';
 	}

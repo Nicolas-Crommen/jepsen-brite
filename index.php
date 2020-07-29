@@ -9,9 +9,7 @@ $stmt->execute();
 $events = $stmt->fetchAll();
 
 
-
 ?>
-
 
 <section class="events">
 	<div class="container">
@@ -31,7 +29,6 @@ $events = $stmt->fetchAll();
 						</div>
 						<ul class="info-event list-unstyled">
 							<li> <strong> category : <?php echo $event['name'] ?></strong></li>
-
 							<li class="author">created by <?php echo $event['nickname'] ?> </li>
 							<li class="date-event"><?php echo formatDate($event['date_debut']) ?> </li>
 
