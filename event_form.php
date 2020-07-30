@@ -13,7 +13,7 @@ if (isset($_SESSION['userid'])) { ?>
 			<p>
 				<input class="form-control" type="text" name="title" autocomplete="off" placeholder="Give your event a title" required="required" />
 			</p>
-			<p><input class="form-control" type="date" name="time" placeholder="yyyy-mm-jj"></p>
+			<p><input class="form-control" type="date" name="date_debut" placeholder="yyyy-mm-jj"></p>
 			<p>
 				<textarea class="form-control" name="description" rows="8" cols="45" autocomplete="off" placeholder="Explain what will take place" required="required"></textarea>
 			</p>
@@ -34,10 +34,10 @@ if (isset($_SESSION['userid'])) { ?>
 
 	<?php
 		
-	if (isset($_POST['title']) AND isset($_POST['description']) AND isset($_POST['id_category']) AND isset($_POST['time'])) {
+	if (isset($_POST['title']) AND isset($_POST['description']) AND isset($_POST['id_category']) AND isset($_POST['date_debut'])) {
 
-		$req = $con -> prepare('INSERT INTO events(title,author,description,id_category,image,`time`) VALUES(?, ?, ?, ?, ?, ?)');
-		$req -> execute(array($_POST['title'], $_SESSION['userid'],$_POST['description'], $_POST['id_category'], 'image.com', $_POST['time']));
+		$req = $con -> prepare('INSERT INTO events(title,author,description,id_category,image,date_debut) VALUES(?, ?, ?, ?, ?, ?)');
+		$req -> execute(array($_POST['title'], $_SESSION['userid'],$_POST['description'], $_POST['id_category'], 'image.com', $_POST['date_debut']));
 
 		echo '<p class="" align="center" color="green">Your event has been added to our database</p>';
 	}
