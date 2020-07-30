@@ -20,35 +20,32 @@ if (isset($_SESSION['userid'])) { ?>
 			<p>In which category would you like your event to be referenced ?
 				<select class="form-control" name="id_category">
 					<?php
-					$categor = $con -> prepare('SELECT * FROM categor');
-					$categor -> execute();
-					$cats = $categor -> fetchAll();
+					$categor = $con->prepare('SELECT * FROM categor');
+					$categor->execute();
+					$cats = $categor->fetchAll();
 					foreach ($cats as $cat) {
-						echo '<option value="' . $cat[id_category] . '">'.$cat[name].'</option>';
-					}?>
+						echo '<option value="' . $cat['id_category'] . '">' . $cat['name'] . '</option>';
+					} ?>
 				</select>
 			</p>
 			<input class="btn btn-info btn-block" type="submit" name="submit">
 		</form>
 	</div>
 
-	<?php
-		
-	if (isset($_POST['title']) AND isset($_POST['description']) AND isset($_POST['id_category']) AND isset($_POST['time'])) {
+<?php
 
-		$req = $con -> prepare('INSERT INTO events(title,author,description,id_category,image,`time`) VALUES(?, ?, ?, ?, ?, ?)');
-		$req -> execute(array($_POST['title'], $_SESSION['userid'],$_POST['description'], $_POST['id_category'], 'image.com', $_POST['time']));
+	if (isset($_POST['title']) and isset($_POST['description']) and isset($_POST['id_category']) and isset($_POST['time'])) {
+
+		$req = $con->prepare('INSERT INTO events(title,author,description,id_category,image,`time`) VALUES(?, ?, ?, ?, ?, ?)');
+		$req->execute(array($_POST['title'], $_SESSION['userid'], $_POST['description'], $_POST['id_category'], 'image.com', $_POST['time']));
 
 		echo '<p class="" align="center" color="green">Your event has been added to our database</p>';
-	}
-	else
-	{
+	} else {
 		echo '<p align="center" color="red">All fields are required !<p>';
 	}
-} 
-
-else
-	{echo 'You must be logged in to access this page. Please <a href="login.php">log to your account</a>';}
+} else {
+	echo 'You must be logged in to access this page. Please <a href="login.php">log to your account</a>';
+}
 
 include "./includes/templates/footer.php";
 ?>

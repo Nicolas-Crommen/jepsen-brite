@@ -1,6 +1,14 @@
 <?php
 session_start();
-?>
+include "connect.php";
+$queryCatNav = $con->prepare("SELECT count(ev.id_event) as nbEvent , ca.name
+from events ev
+JOIN categor ca
+where ev.id_category = ca.id_category
+GROUP by ca.name");
+$queryCatNav->execute();
+$categoriesNav = $queryCatNav->fetchAll() ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -20,9 +28,9 @@ session_start();
         <div class="container">
 
             <?php if (isset($_SESSION['userid'])) { ?>
-                <a href="logout.php"><span class="pull-right">Logout</span></a>
+                <a href="logout.php"><span class="pull-right btn-login ">Logout</span></a>
             <?php } else { ?>
-                <a href="login.php"><span class="pull-right">Login/Sign-up</span></a>
+                <a href="login.php"><span class="pull-right btn-login">Login/Sign-up</span></a>
             <?php } ?>
 
         </div>
@@ -45,14 +53,25 @@ session_start();
                 <ul class="nav navbar-nav navbar-right">
 
                     <li><a href="index.php">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Categories <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+
+                            <?php
+
+                            foreach ($categoriesNav as $catNav) {
+                                echo "<li> <a href=event_show.php?do=show&cat=" . $catNav["name"] . ">" . $catNav["name"] . "(" . $catNav["nbEvent"] . ")" . "</a></li>";
+                            }
+                            ?>
+                        </ul>
+                    </li>
                     <?php if (isset($_SESSION['userid'])) { ?>
                         <li><a class="profile-link" href="user_events.php">My events</a></li>
                     <?php } ?>
                     <?php if (isset($_SESSION['userid'])) { ?>
                         <li><a class="profile-link" href="event_form.php">Add my event</a></li>
                     <?php } ?>
-                    <li><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
+
                     <?php if (isset($_SESSION['userid'])) { ?>
                         <li><a class="profile-link" href="profile.php"><?php echo strtoupper($_SESSION["nickname"])  ?></a></li>
                     <?php } ?>
