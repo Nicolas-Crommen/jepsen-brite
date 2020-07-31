@@ -19,13 +19,13 @@ $events = $stmt->fetchAll();
 			foreach ($events as $event) {
 			?>
 				<div class="col-sm-4">
-					<div class="event">
+					<div class="event border-style">
 						<div class="over">
 							<p class="text-center"><?php echo $event['title'] ?></p>
 							<a class="showBtn btn btn-info" href="event_show.php?eventID=<?php echo $event["id_event"] ?>">More details +</a>
 						</div>
 						<div class="img-container">
-							<img src="layout/images/event.JPG">
+							<img src='layout/images/<?php echo $event['image'] ?>'>
 						</div>
 						<ul class="info-event list-unstyled">
 							<li> <strong> category : <?php echo $event['name'] ?></strong></li>

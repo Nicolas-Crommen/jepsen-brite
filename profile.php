@@ -12,7 +12,12 @@ if (!empty($_SESSION) && empty($_GET['do'])) {
         <div class="container">
             <h1 class="text-center">My profile</h1>
             <div class="panel panel-primary information">
-                <div class="panel-heading">My infos</div>
+                <div class="panel-heading">
+                    <h6 class="text-center">MY INFO</h6>
+                    <div class="img-profile">
+                        <img src="https://via.placeholder.com/100.png/09f/fffC/O https://placeholder.com/">
+                    </div>
+                </div>
                 <div class="panel-body">
                     <ul class="list-unstyled">
                         <li><i class="fas fa-sign-in-alt"></i> <span> login name: </span> <?php echo $row["nickname"] ?></li>

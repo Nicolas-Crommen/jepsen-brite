@@ -24,7 +24,7 @@ if (isset($_GET["cat"]) && $_GET['do'] = 'show') {
                                 <a class="showBtn btn btn-info" href="event_show.php?do=showDatails&eventID=<?php echo $event["id_event"] ?>">More details +</a>
                             </div>
                             <div class="img-container">
-                                <img src="layout/images/event.JPG">
+                                <img src="event_show.php?eventID=<?php echo $event["id_event"] ?>">
                             </div>
                             <ul class="info-event list-unstyled">
                                 <li> <strong> category : <?php echo $event['name'] ?></strong></li>
