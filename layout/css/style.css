@@ -137,11 +137,9 @@ form i {
   min-height: 430px;
 }
 
-<<<<<<< HEAD
-.border-style::before {
-=======
-/*.event::before {
->>>>>>> 67c920d42ae8c01a82799fbc6dc4193170e71222
+/*.border-style::before {
+.event::before {
+
   position: absolute;
   display: block;
   content: "";
@@ -178,13 +176,9 @@ form i {
 .border-style:hover::after {
   width: 94%;
   height: 96%;
-<<<<<<< HEAD
-  border-color: #5bc0de;
-}
-=======
   border-color: #337ab7;
 }*/
->>>>>>> 67c920d42ae8c01a82799fbc6dc4193170e71222
+
 
 .over {
   position: absolute;
