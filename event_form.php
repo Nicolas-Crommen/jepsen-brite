@@ -55,7 +55,7 @@ if (isset($_SESSION['userid'])) { ?>
 		if (empty($imgName)) {
 			$formError[] = "This file can't be empty";
 		}
-		if ($imgSize > 1000000) {
+		if ($imgSize > 3000000) {
 
 			$formError[] = "This file can't be empty";
 		}
