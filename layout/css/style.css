@@ -126,7 +126,7 @@ form i {
   min-height: 430px;
 }
 
-.event::before {
+/*.event::before {
   position: absolute;
   display: block;
   content: "";
@@ -164,7 +164,7 @@ form i {
   width: 94%;
   height: 96%;
   border-color: #337ab7;
-}
+}*/
 
 .over {
   position: absolute;
