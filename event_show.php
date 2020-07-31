@@ -3,13 +3,25 @@ ob_start();
 include "./includes/templates/header.php";
 include "./includes/func/functions.php";
 include "connect.php";
-
+include "./includes/func/markdown.php";
+include "./includes/func/Parsedown.php";
 
 if (isset($_GET["cat"]) && $_GET['do'] = 'show') {
     $stmt = $con->prepare("select * from events ev join users u on ev.author = u.id join categor ca on ca.id_category = ev.id_category   where ca.name = ?");
     $stmt->execute([$_GET["cat"]]);
     $data = $stmt->fetchAll();
 ?>
+    <script src="https://cdn.tiny.cloud/1/rc3x3afwvdknm43392a1j88f52b56x77doamtd7xm0tgi7u5/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: 'textarea',  // change this value according to your HTML
+            plugins: 'emoticons a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinymcespellchecker',
+            toolbar: 'emoticons a11ycheck addcomment showcomments casechange checklist formatpainter pageembed permanentpen table'
+        });
+    </script>
+    <script>
+        var simplemde = new SimpleMDE();
+    </script>
     <section class="events">
         <div class="container">
             <h1>Events</h1>
@@ -20,6 +32,7 @@ if (isset($_GET["cat"]) && $_GET['do'] = 'show') {
                     <div class="col-sm-3">
                         <div class="event">
                             <div class="over">
+
                                 <p class="text-center"><?php echo $event['title'] ?></p>
                                 <a class="showBtn btn btn-info" href="event_show.php?do=showDatails&eventID=<?php echo $event["id_event"] ?>">More details +</a>
                             </div>
