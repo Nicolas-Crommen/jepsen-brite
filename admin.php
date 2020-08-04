@@ -2,8 +2,6 @@
 
 session_start();
 
-var_dump($_SESSION);
-
 include "connect.php";
 
 //Admin verification
@@ -46,37 +44,44 @@ if ($_SESSION['isAdmin'] == 1)
         $req->execute(array($comment_delete));
     }
     
-} else 
-{
+} else { 
+    header('Location: index.php');
     exit();
 }
 
-$users = $con->query('SELECT * FROM users ORDER BY id DESC LIMIT 0,5');
-$events = $con->query('SELECT * FROM events ORDER BY id_event DESC LIMIT 0,5');
-$comments = $con->query('SELECT * FROM comments ORDER BY comment_id DESC LIMIT 0,5');
+$users = $con->query('SELECT * FROM users ORDER BY id DESC LIMIT 0,10');
+$events = $con->query('SELECT * FROM events ORDER BY id_event DESC LIMIT 0,10');
+$comments = $con->query('SELECT * FROM comments ORDER BY comment_id DESC LIMIT 0,10');
 ?>
 <!DOCTYPE html>
 <html>
 <head>
    <meta charset="utf-8" />
    <title>Administration</title>
+   <link rel="stylesheet" href="layout/css/style.css">
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 </head>
 <body>
-   <ul>
+    <h2 class="text-center" style="padding-top: 50px; font-size:50px;">Administration</h2>
+<br><br><br>
+   <ul class="list-group" style="width:60%;margin:0 auto;">
+      <h5 style="margin-left:15px; font-weight: bold;">Lastest Users</h5><br>
       <?php while($u = $users->fetch()) { ?>
-      <li><?= $u['id'] ?> : <?= $u['nickname'] ?><?php if($u['user_confirm'] == 0) { ?> - <a href="admin.php?user_confirm=<?= $u['id'] ?>">Confirmer</a><?php } ?> - <a href="admin.php?user_delete=<?= $u['id'] ?>">Supprimer</a></li>
+      <li class="list-group-item d-flex justify-content-left align-items-center"><span class="style=font-weight:bold;color:black !important;">User ID : <?= $u['id'] ?></span> <span class="ml-4"></span> <span>Pseudo :<?= ' ' . $u['nickname'] ?></span><?php if($u['user_confirm'] == 0) { ?>  <span class="ml-auto"> <a class="btn btn-primary mr-3" href="admin.php?user_confirm=<?= $u['id'] ?>">Accept</a><?php } else { ?> <a class="btn btn-primary disabled ml-auto mr-3" href="">Allowed</a><?php } ?> <a class="btn btn-danger" href="admin.php?user_delete=<?= $u['id'] ?>">Delete</a></span></li>
       <?php } ?>
    </ul>
-   <br /><br />
-   <ul>
+   <br><br><br>
+   <ul class="list-group" style="width:60%;margin:0 auto;">
+      <h5 style="margin-left:15px; font-weight: bold;">Latest Events</h5><br>
       <?php while($e = $events->fetch()) { ?>
-      <li><?= $e['id_event'] ?> : <?= $e['title'] ?><?php if($e['event_confirm'] == 0) { ?> - <a href="admin.php?event_confirm=<?= $e['id_event'] ?>">Confirmer</a><?php } ?> - <a href="admin.php?event_delete=<?= $e['id_event'] ?>">Supprimer</a></li>
+      <li class="list-group-item d-flex justify-content-left align-items-center"><span>Event ID : <?= $e['id_event'] ?> </span><span class="ml-4"></span> <span>Title :<?= ' ' . $e['title'] ?></span><?php if($e['event_confirm'] == 0) { ?> <span class="ml-auto"> <a class="btn btn-primary mr-3" href="admin.php?event_confirm=<?= $e['id_event'] ?>">Accept</a><?php } else { ?> <a class="btn btn-primary disabled ml-auto mr-3" href="">Allowed</a><?php } ?> <a class="btn btn-danger" href="admin.php?event_delete=<?= $e['id_event'] ?>">Delete</a></span></li>
       <?php } ?>
-   </ul>
-   <br /><br />
-   <ul>
+   </ul>s
+   <br><br><br>
+   <ul class="list-group" style="width:60%;margin:0 auto;">
+      <h5 style="margin-left:15px; font-weight: bold;">Latest Comments</h5><br>
       <?php while($c = $comments->fetch()) { ?>
-      <li><?= $c['comment_id'] ?> : <?= $c['comment'] ?><?php if($c['comment_confirm'] == 0) { ?> - <a href="admin.php?comment_confirm=<?= $c['comment_id'] ?>">Confirmer</a><?php } ?> - <a href="admin.php?comment_delete=<?= $c['comment_id'] ?>">Supprimer</a></li>
+      <li class="list-group-item d-flex justify-content-left align-items-center"><span>Comment ID : <?= $c['comment_id'] ?></span> <span class="ml-4"></span> <span>Comment :<?= ' ' . substr($c['comment'], 0, 30) ?><?php if (strlen($c['comment'])> 30) {echo '...';} ?></span><?php if($c['comment_confirm'] == 0) { ?> <span class="ml-auto"> <a class="btn btn-primary mr-3" href="admin.php?comment_confirm=<?= $c['comment_id'] ?>">Accept</a><?php } else { ?> <a class="btn btn-primary disabled ml-auto mr-3" href="">Allowed</a><?php } ?>  <a  class="btn btn-danger"href="admin.php?comment_delete=<?= $c['comment_id'] ?>">Delete</a></span></li>
       <?php } ?>
    </ul>
    
