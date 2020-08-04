@@ -78,7 +78,7 @@ if (isset($_SESSION['userid'])) {
 					$categor -> execute();
 					$cats = $categor -> fetchAll();
 					foreach ($cats as $cat) {
-						echo '<option value="' . $cat[id_category] . '">'.$cat['name].'</option>';
+						echo '<option value="' . $cat[id_category] . '">'.$cat[name].'</option>';
 					}?>
 				</select>
 		</p>

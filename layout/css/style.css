@@ -288,3 +288,5 @@ ul i {
 .navbar-nav > li > .dropdown-menu {
   background-color: #337ab7;
 }
+
+#mapid { height: 200px; }
