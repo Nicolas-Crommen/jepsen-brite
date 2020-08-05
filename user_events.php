@@ -76,10 +76,8 @@ if (isset($_SESSION['userid'])) {
 					<?php
 					$categor = $con -> prepare('SELECT * FROM categor');
 					$categor -> execute();
-					$cats = $categor -> fetchAll();
-					foreach ($cats as $cat) {
-						echo '<option value="' . $cat[id_category] . '">'.$cat['name].'</option>';
-					}?>
+					$cats = $categor -> fetchAll();?>
+					
 				</select>
 		</p>
 		<input class="btn btn-info btn-block" type="submit" name="submit">

@@ -66,7 +66,40 @@ if (isset($_GET["cat"]) && $_GET['do'] == 'show') {
                         <li> <i class="fas fa-calendar-alt"></i> <span>Date: </span><?php echo  $data["date_debut"] ?></li>
                         <li><i class="fas fa-tags"></i> <span>Category: </span><?php echo  $data["name"] ?></li>
                         <li><i class="fas fa-user"></i> <span>Created by: </span><?php echo  $data["nickname"] ?></li>
+
+                        <?php
+                        $participantsverification = $con->prepare('SELECT * FROM association WHERE participate_eventid = ?');
+                        $participantsverification->execute(array($_GET['eventID']));
+                        $participants = $participantsverification->rowCount(); ?>
+
+                        <li><i class="fas fa-users"></i><span>Participants : </span><?php echo $participants ?></li>
                     </ul>
+
+                    <?php
+
+                    $participationverification = $con->prepare('SELECT * FROM association WHERE participate_userid = ? && participate_eventid = ?');
+                    $participationverification->execute(array($_SESSION['userid'], $_GET['eventID']));
+                    $participation = $participationverification->rowCount();
+
+
+                    if ($data['date_debut'] <= date("Y-m-d H:i:s")) {
+                     if ($participation == 1) { ?>
+                        <a href="" class="btn btn-block btn-primary">You Participated</a>
+                     <?php } else {?>
+                        <a href="" class="btn btn-block btn-danger">You did not participate</a>
+                     <?php } ?>
+                    <?php } else {
+
+                        if ($participation == 1) { ?>
+                        <a href="event_participate.php?cancel_userid=<?php echo $_SESSION['userid']; ?>&cancel_eventid=<?php echo $_GET['eventID']; ?>" class="btn btn-block btn-danger">Cancel Participation</a>
+                        <?php } else if (isset($_SESSION['userid'])) {?>
+                            <a href="event_participate.php?participate_userid=<?php echo $_SESSION['userid']; ?>&participate_eventid=<?php echo $_GET['eventID']; ?>" class="btn btn-block btn-primary">Register Participation</a>
+                            <?php } else { ?>
+                                <a href="login.php" class="btn btn-block btn-primary">Login required to Register</a>
+                            <?php } 
+                    }?>
+
+              
                 </div>
             </div>
         </div>

@@ -24,17 +24,7 @@ $categoriesNav = $queryCatNav->fetchAll() ?>
 
 <body>
 
-    <div class="upper-bar">
-        <div class="container">
-
-            <?php if (isset($_SESSION['userid'])) { ?>
-                <a href="logout.php"><span class="pull-right btn-login ">Logout</span></a>
-            <?php } else { ?>
-                <a href="login.php"><span class="pull-right btn-login">Login/Sign-up</span></a>
-            <?php } ?>
-
-        </div>
-    </div>
+  
 
     <nav class="navbar navbar-inverse">
         <div class="container">
@@ -66,7 +56,7 @@ $categoriesNav = $queryCatNav->fetchAll() ?>
                         </ul>
                     </li>
                     <?php if (isset($_SESSION['userid'])) { ?>
-                        <li><a class="profile-link" href="user_events.php">My events</a></li>
+                        <li><a class="profile-link" href="user_dashboard.php">My Dashboard</a></li>
                     <?php } ?>
                     <?php if (isset($_SESSION['userid'])) { ?>
                         <li><a class="profile-link" href="event_form.php">Add my event</a></li>
@@ -75,6 +65,12 @@ $categoriesNav = $queryCatNav->fetchAll() ?>
                     <?php if (isset($_SESSION['userid'])) { ?>
                         <li><a class="profile-link" href="profile.php"><?php echo strtoupper($_SESSION["nickname"])  ?></a></li>
                     <?php } ?>
+                    <?php if (isset($_SESSION['userid'])) { ?>
+                        <li><a href="logout.php">Logout</a></li>
+                    <?php } else { ?>
+                        <li><a href="login.php">Login/Sign-up</a></li>
+                    <?php } ?>
+
                 </ul>
             </div>
         </div>

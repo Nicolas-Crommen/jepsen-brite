@@ -74,7 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
         $_SESSION['nickname'] = $data['nickname'];
         $_SESSION['isAdmin'] = $data['isAdmin'];
         echo '<div class="alert alert-success text-center">Authentification validée</div>';
-        header("refresh: 100; url = index.php");
+        header("refresh: 2; url = index.php");
         exit();
     } else {
         echo "<div class='alert alert-danger text-center'>this account doesn't exist</div>";

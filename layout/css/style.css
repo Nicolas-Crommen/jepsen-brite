@@ -288,3 +288,8 @@ ul i {
 .navbar-nav > li > .dropdown-menu {
   background-color: #337ab7;
 }
+
+
+.h3-dashboard {
+  margin: 30px 100px;
+}
