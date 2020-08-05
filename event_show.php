@@ -84,9 +84,9 @@ if (isset($_GET["cat"]) && $_GET['do'] == 'show') {
 
                     if ($data['date_debut'] <= date("Y-m-d H:i:s")) {
                      if ($participation == 1) { ?>
-                        <a href="" class="btn btn-block btn-primary">You Participated</a>
+                        <button disabled href="" class="btn btn-block btn-primary">You Participated</button>
                      <?php } else {?>
-                        <a href="" class="btn btn-block btn-danger">You did not participate</a>
+                        <button disabled href="" class="btn btn-block btn-danger">You did not participate</button>
                      <?php } ?>
                     <?php } else {
 
