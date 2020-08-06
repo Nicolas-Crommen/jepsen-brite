@@ -4,6 +4,8 @@ include "connect.php";
 include "./includes/func/functions.php";
 ?>
 
+
+
 <?php
 if (isset($_SESSION['userid'])) { ?>
 
@@ -17,6 +19,7 @@ if (isset($_SESSION['userid'])) { ?>
 			<p>
 				<textarea class="form-control" name="description" rows="8" cols="45" autocomplete="off" placeholder="Explain what will take place" required="required"></textarea>
 			</p>
+			<p><input class="form-control" type="text" name="address" autocomplete="off" placeholder="Indicate here the address of your event" required="required" /></p>
 			<p>In which category would you like your event to be referenced ?
 				<select class="form-control" name="id_category">
 					<?php
@@ -28,6 +31,7 @@ if (isset($_SESSION['userid'])) { ?>
 					} ?>
 				</select>
 			</p>
+			<p>Illustration :<br /><input type="radio" name="illu-choice" value="image" id="image" checked="checked" /><label for="image"> Image </label><input type="radio" name="illu-choice" value="youtube" id="youtube" /><label for="youtube"> Youtube Video </label><input type="radio" name="illu-choice" value="vime" id="vimeo" /><label for="vimeo"> Vimeo Video </label>
 			<input type="file" name="event-img">
 			<input class="btn btn-info btn-block" type="submit" name="submit">
 		</form>
@@ -36,7 +40,7 @@ if (isset($_SESSION['userid'])) { ?>
 
 <?php
 
-	if (isset($_POST['title']) and isset($_POST['description']) and isset($_POST['id_category']) and isset($_POST['date_debut'])) {
+	if (isset($_POST['title']) and isset($_POST['description']) and isset($_POST['id_category']) and isset($_POST['date_debut']) and isset($_POST['address'])) {
 
 
 		$imgName = $_FILES['event-img']['name'];
@@ -65,8 +69,8 @@ if (isset($_SESSION['userid'])) { ?>
 			move_uploaded_file($imgTmp, "layout\images\\" . $imageEvent);
 			echo $imageEvent;
 
-			$req = $con->prepare('INSERT INTO events(title,author,description,id_category,image,date_debut) VALUES(?, ?, ?, ?, ?, ?)');
-			$req->execute(array($_POST['title'], $_SESSION['userid'], $_POST['description'], $_POST['id_category'], $imageEvent, $_POST['date_debut']));
+			$req = $con->prepare('INSERT INTO events(title,author,description,id_category,image,date_debut,address) VALUES(?, ?, ?, ?, ?, ?, ?)');
+			$req->execute(array($_POST['title'], $_SESSION['userid'], $_POST['description'], $_POST['id_category'], $imageEvent, $_POST['date_debut'], $_POST['address']));
 
 			echo '<p class="" align="center" color="green">Your event has been added to our database</p>';
 		}

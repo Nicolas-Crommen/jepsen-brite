@@ -64,16 +64,17 @@ if (isset($_GET["cat"]) && $_GET['do'] == 'show') {
                     <ul class="list-unstyled">
                         <li> <i class="fas fa-info-circle"></i> <span>Description: </span><br> <?php echo $data["description"] ?> </li>
                         <li> <i class="fas fa-calendar-alt"></i> <span>Date: </span><?php echo  $data["date_debut"] ?></li>
+                        <li> <i class="fas fa-map-marker"></i> <span>Place: </span><?php echo $data["address"] ?></li>
                         <li><i class="fas fa-tags"></i> <span>Category: </span><?php echo  $data["name"] ?></li>
                         <li><i class="fas fa-user"></i> <span>Created by: </span><?php echo  $data["nickname"] ?></li>
-
                         <?php
                         $participantsverification = $con->prepare('SELECT * FROM association WHERE participate_eventid = ?');
                         $participantsverification->execute(array($_GET['eventID']));
                         $participants = $participantsverification->rowCount(); ?>
 
                         <li><i class="fas fa-users"></i><span>Participants : </span><?php echo $participants ?></li>
-                    </ul>
+
+                    
 
                     <?php
 
@@ -98,8 +99,8 @@ if (isset($_GET["cat"]) && $_GET['do'] == 'show') {
                                 <a href="login.php" class="btn btn-block btn-primary">Login required to Register</a>
                             <?php } 
                     }?>
-
-              
+                    <li><iframe src="https://www.google.com/maps?q=<?php echo $data["address"] ?>&output=embed" width="550" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe></li>
+                </ul>
                 </div>
             </div>
         </div>
@@ -178,6 +179,9 @@ if (isset($_GET["cat"]) && $_GET['do'] == 'show') {
     </div>
 
 <?php } ?>
+
+
+
 
 
 <?php
