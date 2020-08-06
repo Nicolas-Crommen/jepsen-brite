@@ -7,7 +7,6 @@ include "./includes/func/functions.php";
 
 
 <?php
-echo $_SESSION['userid'];
 if (isset($_SESSION['userid'])) { ?>
 
 	<div class="container login-page">
@@ -32,6 +31,7 @@ if (isset($_SESSION['userid'])) { ?>
 					} ?>
 				</select>
 			</p>
+			<p>Illustration :<br /><input type="radio" name="illu-choice" value="image" id="image" checked="checked" /><label for="image"> Image </label><input type="radio" name="illu-choice" value="youtube" id="youtube" /><label for="youtube"> Youtube Video </label><input type="radio" name="illu-choice" value="vime" id="vimeo" /><label for="vimeo"> Vimeo Video </label>
 			<input type="file" name="event-img">
 			<input class="btn btn-info btn-block" type="submit" name="submit">
 		</form>
