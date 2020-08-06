@@ -25,7 +25,7 @@ $events = $stmt->fetchAll();
 							<a class="showBtn btn btn-info" href="event_show.php?eventID=<?php echo $event["id_event"] ?>">More details +</a>
 						</div>
 						<div class="img-container">
-							<img src='layout/images/<?php echo $event['image'] ?>'>
+							<img src='layout/images/<?php echo $event["image"] ?>'>
 						</div>
 						<ul class="info-event list-unstyled">
 							<li> <strong> category : <?php echo $event['name'] ?></strong></li>
@@ -37,16 +37,16 @@ $events = $stmt->fetchAll();
 				</div>
 			<?php } ?>
 
+
+			<?php
+
+			?>
 	</div>
 	</div>
 
 
 </section>
 
-
-<?php
-
-?>
 
 <?php
 include "./includes/templates/footer.php";

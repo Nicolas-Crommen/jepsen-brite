@@ -5,7 +5,6 @@
 }
 body {
   position: relative;
-  height: 2000px;
 }
 
 strong {
@@ -137,10 +136,9 @@ form i {
   min-height: 430px;
 }
 
-<<<<<<< HEAD
-.border-style::before {
-=======
-/*.event::before {
+/*.border-style::before {
+
+.event::before {
 >>>>>>> 67c920d42ae8c01a82799fbc6dc4193170e71222
   position: absolute;
   display: block;
@@ -181,10 +179,9 @@ form i {
 <<<<<<< HEAD
   border-color: #5bc0de;
 }
-=======
+
   border-color: #337ab7;
 }*/
->>>>>>> 67c920d42ae8c01a82799fbc6dc4193170e71222
 
 .over {
   position: absolute;
@@ -256,10 +253,17 @@ ul i {
 }
 
 .comment-box .lead {
-  background-color: #74b9ff;
+  background-color: rgba(116, 185, 255, 0.1);
   position: relative;
   padding: 10px 20px;
   margin-top: 25px;
+}
+
+.comment-box img {
+  height: 60px;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 5px;
 }
 
 .comment-box .lead:before {
@@ -269,10 +273,14 @@ ul i {
   border: 5px solid red;
   border-style: solid;
   border-width: 15px;
-  border-color: transparent #74b9ff transparent transparent;
+  border-color: transparent rgba(116, 185, 255, 0.1) transparent transparent;
   position: absolute;
-  left: -28px;
-  top: 10px;
+  left: -30px;
+  top: 4px;
+}
+
+.comment-box p {
+  font-size: 12px;
 }
 
 .dropdown-menu > li > a {
@@ -293,4 +301,14 @@ ul i {
 
 .navbar-nav > li > .dropdown-menu {
   background-color: #337ab7;
+}
+
+.btns-cat li {
+  margin-bottom: 30px;
+  margin-bottom: 30px;
+}
+
+.btns-cat a {
+  color: #fff;
+  padding: 20px 60px;
 }
