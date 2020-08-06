@@ -64,7 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
     $pass = $_POST["pass"];
 
 
-    $stmt = $con->prepare('SELECT id, nickname , password FROM users WHERE nickname=?');
+    $stmt = $con->prepare('SELECT id, nickname , isAdmin, `password` FROM users WHERE nickname=?');
     $stmt->execute([$userName]);
     $row = $stmt->rowCount();
     $data = $stmt->fetch();
@@ -72,6 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
     if ($row > 0 && password_verify($_POST["pass"], $data['password'])) {
         $_SESSION['userid'] = $data['id'];
         $_SESSION['nickname'] = $data['nickname'];
+        $_SESSION['isAdmin'] = $data['isAdmin'];
         echo '<div class="alert alert-success text-center">Authentification validée</div>';
         header("refresh: 2; url = index.php");
         exit();

@@ -68,7 +68,42 @@ if (isset($_GET["cat"]) && $_GET['do'] == 'showByCat') {
                         <li> <i class="fas fa-calendar-alt"></i> <span>Date: </span><?php echo  $data["date_debut"] ?></li>
                         <li><i class="fas fa-tags"></i> <span>Category: </span><?php echo  $data["10"] ?></li>
                         <li><i class="fas fa-tags"></i> <span>Sub Category: </span><?php echo  $data["name"] ?></li>
+                        <li> <i class="fas fa-map-marker"></i> <span>Place: </span><?php echo $data["address"] ?></li>
+                        <li><i class="fas fa-tags"></i> <span>Category: </span><?php echo  $data["name"] ?></li>
                         <li><i class="fas fa-user"></i> <span>Created by: </span><?php echo  $data["nickname"] ?></li>
+                        <?php
+                        $participantsverification = $con->prepare('SELECT * FROM association WHERE participate_eventid = ?');
+                        $participantsverification->execute(array($_GET['eventID']));
+                        $participants = $participantsverification->rowCount(); ?>
+
+                        <li><i class="fas fa-users"></i><span>Participants : </span><?php echo $participants ?></li>
+
+
+
+                        <?php
+
+                        $participationverification = $con->prepare('SELECT * FROM association WHERE participate_userid = ? && participate_eventid = ?');
+                        $participationverification->execute(array($_SESSION['userid'], $_GET['eventID']));
+                        $participation = $participationverification->rowCount();
+
+
+                        if ($data['date_debut'] <= date("Y-m-d H:i:s")) {
+                            if ($participation == 1) { ?>
+                                <button disabled href="" class="btn btn-block btn-primary">You Participated</button>
+                            <?php } else { ?>
+                                <button disabled href="" class="btn btn-block btn-danger">You did not participate</button>
+                            <?php } ?>
+                            <?php } else {
+
+                            if ($participation == 1) { ?>
+                                <a href="event_participate.php?cancel_userid=<?php echo $_SESSION['userid']; ?>&cancel_eventid=<?php echo $_GET['eventID']; ?>" class="btn btn-block btn-danger">Cancel Participation</a>
+                            <?php } else if (isset($_SESSION['userid'])) { ?>
+                                <a href="event_participate.php?participate_userid=<?php echo $_SESSION['userid']; ?>&participate_eventid=<?php echo $_GET['eventID']; ?>" class="btn btn-block btn-primary">Register Participation</a>
+                            <?php } else { ?>
+                                <a href="login.php" class="btn btn-block btn-primary">Login required to Register</a>
+                        <?php }
+                        } ?>
+                        <li><iframe src="https://www.google.com/maps?q=<?php echo $data["address"] ?>&output=embed" width="550" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe></li>
                     </ul>
                 </div>
             </div>
@@ -145,6 +180,9 @@ if (isset($_GET["cat"]) && $_GET['do'] == 'showByCat') {
     header("location:index.php");
     exit();
 } ?>
+
+
+
 
 <?php
 include "./includes/templates/footer.php";

@@ -136,53 +136,6 @@ form i {
   min-height: 430px;
 }
 
-/*.border-style::before {
-
-.event::before {
->>>>>>> 67c920d42ae8c01a82799fbc6dc4193170e71222
-  position: absolute;
-  display: block;
-  content: "";
-  top: 10px;
-  left: 10px;
-  width: 0;
-  height: 0;
-  border: 3px solid transparent;
-  border-right: none;
-  border-bottom: none;
-  transition: all 0.5s ease-in-out;
-}
-
-.border-style::after {
-  position: absolute;
-  display: block;
-  content: "";
-  right: 10px;
-  bottom: 10px;
-  width: 0;
-  height: 0;
-  border: 3px solid transparent;
-  border-left: none;
-  border-top: none;
-  transition: all 0.5s ease-in-out;
-}
-
-.border-style:hover::before {
-  width: 94%;
-  height: 95.5%;
-  border-color: #5bc0de;
-}
-
-.border-style:hover::after {
-  width: 94%;
-  height: 96%;
-<<<<<<< HEAD
-  border-color: #5bc0de;
-}
-
-  border-color: #337ab7;
-}*/
-
 .over {
   position: absolute;
   top: 0;
@@ -311,4 +264,8 @@ ul i {
 .btns-cat a {
   color: #fff;
   padding: 20px 60px;
+}
+
+.h3-dashboard {
+  margin: 30px 100px;
 }

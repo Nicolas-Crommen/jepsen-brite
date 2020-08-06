@@ -25,7 +25,7 @@ if (isset($_SESSION['userid'])) {
 				</div>
 			</div>
 		</div>
-	<?php } elseif ($_GET["do"] ==  'create') { ?>
+	<?php } elseif ($_GET["do"] == 'create') { ?>
 
 		<div class="container login-page">
 			<div class="text-center"><a class="btn btn-info" href=<?php echo $_SERVER['HTTP_REFERER'] ?>>Change the category</a></div>
@@ -35,24 +35,21 @@ if (isset($_SESSION['userid'])) {
 				<input class="form-control" type="text" name="title" autocomplete="off" placeholder="Give your event a title" required="required" />
 				<input class="form-control" type="date" name="date_debut" placeholder="yyyy-mm-jj"></p>
 				<textarea class="form-control" name="description" rows="8" cols="45" autocomplete="off" placeholder="Explain what will take place" required="required"></textarea>
+				<p><input class="form-control" type="text" name="address" autocomplete="off" placeholder="Indicate here the address of your event" required="required" /></p>
 				<label> In which category would you like your event to be referenced ?</label>
 				<select class="form-control" name="id_category">
 					<?php
 					$categor = $con->prepare('SELECT * FROM categor WHERE parent_id = ? ');
 					$categor->execute([$_GET['id']]);
 					$cats = $categor->fetchAll();
-
 					foreach ($cats as $cat) {
 						echo '<option value="' . $cat['id_category'] . '">' . $cat['name'] . '</option>';
 					} ?>
 				</select>
 				<input type="file" name="event-img">
 				<input class="btn btn-info btn-block" type="submit" name="submit">
-
 			</form>
 		</div>
-
-
 <?php
 
 
@@ -88,8 +85,8 @@ if (isset($_SESSION['userid'])) {
 			move_uploaded_file($imgTmp, "layout\images\\" . $imageEvent);
 			echo $imageEvent;
 
-			$req = $con->prepare('INSERT INTO events(title,author,description,id_category,id_sub,image,date_debut) VALUES(?, ?, ?, ?, ?, ? ,?)');
-			$req->execute(array($_POST['title'], $_SESSION['userid'], $_POST['description'], $_GET['id'], $_POST['id_category'], $imageEvent, $_POST['date_debut']));
+			$req = $con->prepare('INSERT INTO events(title,author,description,id_category,id_sub,image,date_debut ,address) VALUES(?, ?, ?, ?, ?, ? ,? ,?)');
+			$req->execute(array($_POST['title'], $_SESSION['userid'], $_POST['description'], $_GET['id'], $_POST['id_category'], $imageEvent, $_POST['date_debut'], $_POST['address']));
 
 			echo '<p class="alert alert-info" align="center" color="green">Your event has been added to our database</p>';
 			header("refresh: 1; url = profile.php");
