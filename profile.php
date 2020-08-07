@@ -31,9 +31,10 @@ if (!empty($_SESSION) && empty($_GET['do'])) {
         </div>
 
     <?php }
+    /*Edit your profile*/
 } elseif (!empty($_SESSION) && $_GET['do'] == "edit" && $_GET["Userid"] == $_SESSION["userid"]) {
 
-    $stmt = $con->prepare('SELECT id , nickname , email  FROM users where id = ? and nickname = ? ');
+    $stmt = $con->prepare('SELECT id , nickname , email ,password  FROM users where id = ? and nickname = ? ');
     $stmt->execute([$_SESSION['userid'], $_SESSION['nickname']]);
     $row = $stmt->fetch(); ?>
 
@@ -42,25 +43,46 @@ if (!empty($_SESSION) && empty($_GET['do'])) {
         <form class="form-edit" action="?do=update" method="POST">
             <input class="form-control" type="text" name="username" autocomplete="off" placeholder="Your user name" required="required" value=<?php echo $row['nickname'] ?> />
             <input class="form-control" type="text" name="email" autocomplete="new-password" placeholder="Type a Valid email" required="required" value=<?php echo $row['email'] ?> />
+            <input class="form-control" type="hidden" name="oldPassword" placeholder="" required="required" value=<?php echo $row['password'] ?> />
+
+            <div class="form-group">
+                <input class="form-control" type="password" name="newPassword" placeholder="Type a new password if you want to change it" />
+            </div>
             <input class="btn btn-success btn-block" type="submit" value="update" name="update" />
         </form>
     </div>
 <?php
 
 
-
+    /*Update profile after editing*/
 } elseif (!empty($_SESSION) && $_GET["do"] == "update") {
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $stmt = $con->prepare("UPDATE users SET nickname = ? , Email = ?  WHERE id =?");
-        $stmt->execute([$_POST["username"], $_POST["email"], $_SESSION['userid']]);
+
+        $oldPassword = $_POST["oldPassword"];
+        $newPassword = "";
+
+        if (empty($_POST["newPassword"])) {
+            $newPassword = $oldPassword;
+        } else {
+            $newPassword = password_hash($_POST["newPassword"], PASSWORD_DEFAULT);
+        }
+
+
+        $stmt = $con->prepare("UPDATE users SET nickname = ? , Email = ? , `password`=?  WHERE id =?");
+        $stmt->execute([$_POST["username"], $_POST["email"], $newPassword, $_SESSION['userid']]);
         $_SESSION["nickname"] = $_POST["username"];
 
         if ($stmt->rowCount() > 0) {
             echo "<div class='alert alert-success text-center'>Your personal information has been successfully updated</div>";
             header("refresh: 2; url = profile.php");
             exit();
+        } else {
+            echo "You dont make any changes";
+            header("refresh: 2; url = profile.php");
+            exit();
         }
     }
+    /*Supprimer le profile*/
 } elseif (!empty($_SESSION) && $_GET["do"] == "delete") {
     $stmt = $con->prepare("DELETE FROM users WHERE id = ?");
     $stmt->execute([$_SESSION['userid']]);
@@ -72,6 +94,8 @@ if (!empty($_SESSION) && empty($_GET['do'])) {
     }
 } else {
     echo "<div class='alert alert-danger text-center'>Sorry you don't have access to this page</div>";
+    header("refresh: 2; url = logout.php");
+    exit();
 }
 
 

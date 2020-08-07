@@ -1,6 +1,8 @@
 <?php
 session_start();
 include "connect.php";
+
+/*Recuperer tous les cats pour les afficher en dropDownMenu*/
 $queryCatNav = $con->prepare("SELECT count(ev.id_event) as nbEvent , ca.name
 from events ev
 JOIN categor ca
@@ -50,7 +52,7 @@ $categoriesNav = $queryCatNav->fetchAll() ?>
                             <?php
 
                             foreach ($categoriesNav as $catNav) {
-                                echo "<li> <a href=event_show.php?do=show&cat=" . $catNav["name"] . ">" . $catNav["name"] . "(" . $catNav["nbEvent"] . ")" . "</a></li>";
+                                echo "<li> <a href=event_show.php?do=showByCat&cat=" . $catNav["name"] . ">" . $catNav["name"] . "(" . $catNav["nbEvent"] . ")" . "</a></li>";
                             }
                             ?>
                         </ul>
@@ -59,7 +61,7 @@ $categoriesNav = $queryCatNav->fetchAll() ?>
                         <li><a class="profile-link" href="user_dashboard.php">My Dashboard</a></li>
                     <?php } ?>
                     <?php if (isset($_SESSION['userid'])) { ?>
-                        <li><a class="profile-link" href="event_form.php">Add my event</a></li>
+                        <li><a class="profile-link" href="event_form.php?do=add">Add my event</a></li>
                     <?php } ?>
 
                     <?php if (isset($_SESSION['userid'])) { ?>
