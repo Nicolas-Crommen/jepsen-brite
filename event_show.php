@@ -49,6 +49,7 @@ if (isset($_GET["cat"]) && $_GET['do'] == 'showByCat') {
     $stmt = $con->prepare("SELECT * from events e join categor c on e.id_category = c.id_category join categor sup on sup.id_category = e.id_sub join users us on us.id = e.author where e.id_event = ?");
     $stmt->execute([$_GET["eventID"]]);
     $data = $stmt->fetch();
+
 ?>
 
     <div class="container">
@@ -73,7 +74,7 @@ if (isset($_GET["cat"]) && $_GET['do'] == 'showByCat') {
                     <ul class="list-unstyled">
                         <li> <i class="fas fa-info-circle"></i> <span>Description: </span><br> <?php echo $data["description"] ?> </li>
                         <li> <i class="fas fa-calendar-alt"></i> <span>Date: </span><?php echo  $data["date_debut"] ?></li>
-                        <li><i class="fas fa-tags"></i> <span>Category: </span><?php echo  $data["12"] ?></li>
+                        <li><i class="fas fa-tags"></i> <span>Category: </span><?php echo  $data["13"] ?></li>
                         <li><i class="fas fa-tags"></i> <span>Sub Category: </span><?php echo  $data["name"] ?></li>
                         <li> <i class="fas fa-map-marker"></i> <span>Place: </span><?php echo $data["address"] ?></li>
                         <li><i class="fas fa-user"></i> <span>Created by: </span><?php echo  $data["nickname"] ?></li>
