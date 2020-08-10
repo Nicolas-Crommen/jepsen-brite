@@ -32,7 +32,7 @@ if (isset($_SESSION['userid'])) { ?>
                                 <li class="text-center"> <?php echo $ce['date_debut'] ?></li>
                                 <li class="text-center"> <?php echo $ce['name'] ?></li>
                                 <!-- Edit Event -->
-                                <?php echo '<a href="user_dashboard.php?edit_id_event=' . $ce['id_event'] . '" class="btn btn-success text-center btn-block">Edit (not working yet)</a>'; ?>
+                                <?php echo '<a href="event_edit.php?do=edit&edit_id_event=' . $ce['id_event'] . '" class="btn btn-success text-center btn-block">Edit</a>'; ?>
                                 <!-- Delete Event -->
                                 <?php echo '<a href="user_dashboard.php?delete_id_event=' . $ce['id_event'] . '" class="btn btn-danger text-center btn-block" >Delete</a>';
 

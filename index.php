@@ -21,33 +21,29 @@ $events = $stmt->fetchAll();
 				<div class="col-sm-4">
 					<div class="event border-style">
 						<div class="over">
-							<p class="text-center"><?php echo $event['title'] ?></p>
-							<a class="showBtn btn btn-info" href="event_show.php?eventID=<?php echo $event["id_event"] ?>">More details +</a>
+							<p class="text-center"><?= $event['title'] ?></p>
+							<a class="showBtn btn btn-info" href="event_show.php?eventID=<?= $event["id_event"] ?>">More details +</a>
 						</div>
 						<div class="img-container">
-							<img src='layout/images/<?php echo $event["image"] ?>'>
+							<img src='layout/images/<?= $event["image"] ?>'>
 						</div>
 						<ul class="info-event list-unstyled">
-							<li> <strong> category : <?php echo $event['name'] ?></strong></li>
-							<li class="author">created by <?php echo $event['nickname'] ?> </li>
-							<li class="date-event"><?php echo formatDate($event['date_debut']) ?> </li>
+							<li> <strong> category : <?= $event['name'] ?></strong></li>
+							<li class="author">created by <?= $event['nickname'] ?> </li>
+							<li class="date-event"><?= formatDate($event['date_debut']) ?> </li>
 
 						</ul>
 					</div>
 				</div>
-			<?php } ?>
-
-
 			<?php
 
-			?>
+			} ?>
+
+
+
+
 	</div>
 	</div>
 
 
 </section>
-
-
-<?php
-include "./includes/templates/footer.php";
-?>

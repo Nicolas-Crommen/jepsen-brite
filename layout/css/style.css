@@ -49,6 +49,11 @@ h1 {
   margin: auto;
 }
 
+.formCenter form {
+  max-width: 380px;
+  margin: auto;
+}
+
 .login-page span {
   cursor: pointer;
 }

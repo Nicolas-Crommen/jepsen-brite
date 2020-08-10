@@ -46,9 +46,9 @@ if (isset($_GET["cat"]) && $_GET['do'] == 'showByCat') {
 
 <?php } elseif (isset($_GET) && isset($_GET["eventID"])) {
     /*Afficher detailis lorqu'on click sur le buton --More details--*/
-    $stmt = $con->prepare("SELECT * from events e join categor c on e.id_category = c.id_category join categor sup on sup.id_category = e.id_sub join users us on us.id = e.author where e.id_event = ?");
+    $stmt = $con->prepare("SELECT * , c.name as cat_name , sup.name as sub_name from events e join categor c on e.id_category = c.id_category join categor sup on sup.id_category = e.id_sub join users us on us.id = e.author where e.id_event = ?");
     $stmt->execute([$_GET["eventID"]]);
-    $data = $stmt->fetch();
+    $data = $stmt->fetch(PDO::FETCH_ASSOC);
 ?>
 
     <div class="container">
@@ -66,10 +66,9 @@ if (isset($_GET["cat"]) && $_GET['do'] == 'showByCat') {
                     <ul class="list-unstyled">
                         <li> <i class="fas fa-info-circle"></i> <span>Description: </span><br> <?php echo $data["description"] ?> </li>
                         <li> <i class="fas fa-calendar-alt"></i> <span>Date: </span><?php echo  $data["date_debut"] ?></li>
-                        <li><i class="fas fa-tags"></i> <span>Category: </span><?php echo  $data["10"] ?></li>
-                        <li><i class="fas fa-tags"></i> <span>Sub Category: </span><?php echo  $data["name"] ?></li>
+                        <li><i class="fas fa-tags"></i> <span>Category: </span><?php echo  $data["cat_name"] ?></li>
+                        <li><i class="fas fa-tags"></i> <span>Sub Category: </span><?php echo  $data["sub_name"] ?></li>
                         <li> <i class="fas fa-map-marker"></i> <span>Place: </span><?php echo $data["address"] ?></li>
-                        <li><i class="fas fa-tags"></i> <span>Category: </span><?php echo  $data["name"] ?></li>
                         <li><i class="fas fa-user"></i> <span>Created by: </span><?php echo  $data["nickname"] ?></li>
                         <?php
                         $participantsverification = $con->prepare('SELECT * FROM association WHERE participate_eventid = ?');
