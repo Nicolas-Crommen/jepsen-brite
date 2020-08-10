@@ -274,3 +274,8 @@ ul i {
 .h3-dashboard {
   margin: 30px 100px;
 }
+
+div.illustrations p {
+  display: none;}
+div.illustrations p:target {
+  display: block;}

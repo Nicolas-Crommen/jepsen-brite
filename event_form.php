@@ -31,7 +31,7 @@ if (isset($_SESSION['userid'])) {
 			<div class="text-center"><a class="btn btn-info" href=<?php echo $_SERVER['HTTP_REFERER'] ?>>Change the category</a></div>
 			<h1 class="text-center">Create event</h1>
 			<!--Form create event-->
-			<form method="POST" action=<?php echo "?do=insert&id=" . $_GET['id'] . "" ?> enctype="multipart/form-data">
+			<form method="POST" action="<?php echo '?do=insert&id=' . $_GET['id'];?>" enctype="multipart/form-data">
 				<input class="form-control" type="text" name="title" autocomplete="off" placeholder="Give your event a title" required="required" />
 				<input class="form-control" type="date" name="date_debut" placeholder="yyyy-mm-jj"></p>
 				<textarea class="form-control" name="description" rows="8" cols="45" autocomplete="off" placeholder="Explain what will take place" required="required"></textarea>
@@ -46,50 +46,36 @@ if (isset($_SESSION['userid'])) {
 						echo '<option value="' . $cat['id_category'] . '">' . $cat['name'] . '</option>';
 					} ?>
 				</select>
-				<input type="file" name="event-img">
+
+			</p>
+			<h3 class="text-center">Type of your illustration :<br /></h3>
+			<select name="image_type" class="form-control" required="required">
+				<option value="none" disabled="disabled" selected="selected">Choose one</option>
+				<option value="1">Image</option>
+				<option value="2">YouTube</option>
+				<option value="3">Vimeo</option>
+			</select>
+
+  			<input class="form-control" type="text" name="image" autocomplete="off" placeholder="Add your illustration URL (Image, YouTube video or Vimeo video)" required="required" />
+</div>
 				<input class="btn btn-info btn-block" type="submit" name="submit">
 			</form>
 		</div>
+
 <?php
 
 
 	} elseif ($_GET['do'] == 'insert') {
 
-		echo "Welcome in insert page";
-
-		$imgName = $_FILES['event-img']['name'];
-		$imgSize = $_FILES['event-img']['size'];
-		$imgTmp	= $_FILES['event-img']['tmp_name'];
-		$imgType = $_FILES['event-img']['type'];
-
-		$formError = array();
-		$allwoedExtensoion = array("jpeg", "jpg", "png", "gif");
-
-		$file_extension = pathinfo($imgName, PATHINFO_EXTENSION);
-
-		if (!empty($imgName) && !in_array(strtolower($file_extension), $allwoedExtensoion)) {
-			$formError[] = "this file format is not valid";
-		}
-		if (empty($imgName)) {
-			$formError[] = "This file can't be empty";
-		}
-		if ($imgSize > 3000000) {
-
-			$formError[] = "This file can't be empty";
-		}
-
-		print_r($formError);
-
-		if (empty($formError)) {
-			$imageEvent = rand(0, 10000000000) . '_' . $imgName;
-			move_uploaded_file($imgTmp, "layout\images\\" . $imageEvent);
-			echo $imageEvent;
-
-			$req = $con->prepare('INSERT INTO events(title,author,description,id_category,id_sub,image,date_debut ,address) VALUES(?, ?, ?, ?, ?, ? ,? ,?)');
-			$req->execute(array($_POST['title'], $_SESSION['userid'], $_POST['description'], $_GET['id'], $_POST['id_category'], $imageEvent, $_POST['date_debut'], $_POST['address']));
+		if (filter_var($_POST['image'], FILTER_VALIDATE_URL)) {
+			if ($_POST['image_type']==1){$illus = $_POST['image'];}
+			elseif ($_POST['image_type']==2){$illus = substr($_POST['image'], -11);}
+			else {$illus = substr($_POST['image'], -9);}
+			$req = $con->prepare('INSERT INTO events(title,author,description,id_category,id_sub,image,image_type,date_debut ,address) VALUES (?, ?, ?, ?, ?, ? ,? ,?,?)');
+			$req->execute(array($_POST['title'], $_SESSION['userid'], $_POST['description'], $_GET['id'], $_POST['id_category'], $illus, $_POST['image_type'],$_POST['date_debut'], $_POST['address']));
 
 			echo '<p class="alert alert-info" align="center" color="green">Your event has been added to our database</p>';
-			header("refresh: 1; url = profile.php");
+			header("refresh: 2; url = index.php");
 			exit();
 		} else {
 			echo '<p align="center" color="red">All fields are required !<p>';

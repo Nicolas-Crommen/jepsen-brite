@@ -25,7 +25,7 @@ if (isset($_GET["cat"]) && $_GET['do'] == 'showByCat') {
                             </div>
 
                             <div class="img-container">
-                                <img src='layout/images/<?php echo $event['image'] ?>'>
+                                <img src="$event['image'] ?>">
                             </div>
 
                             <ul class="info-event list-unstyled">
@@ -46,16 +46,23 @@ if (isset($_GET["cat"]) && $_GET['do'] == 'showByCat') {
 
 <?php } elseif (isset($_GET) && isset($_GET["eventID"])) {
     /*Afficher detailis lorqu'on click sur le buton --More details--*/
-    $stmt = $con->prepare("SELECT * , c.name as cat_name , sup.name as sub_name from events e join categor c on e.id_category = c.id_category join categor sup on sup.id_category = e.id_sub join users us on us.id = e.author where e.id_event = ?");
+    $stmt = $con->prepare("SELECT * from events e join categor c on e.id_category = c.id_category join categor sup on sup.id_category = e.id_sub join users us on us.id = e.author where e.id_event = ?");
     $stmt->execute([$_GET["eventID"]]);
-    $data = $stmt->fetch(PDO::FETCH_ASSOC);
+    $data = $stmt->fetch();
 ?>
 
     <div class="container">
         <div class="row">
             <div class="col-md-6">
                 <div class="img-container img-event">
-                    <img src='layout/images/<?php echo $data['image'] ?>'>
+                    <?php if ($data['image_type'] == 1) {
+                        echo '<img src="' . $data['image'] . '">';
+                    } elseif ($data['image_type'] == 2) {
+                        echo '<iframe width="560" height="315" src="https://www.youtube.com/embed/' . $data['image'] . '" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+                    } else {
+                        echo '<iframe src="https://player.vimeo.com/video/' . $data['image'] . '" width="560" height="315" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>';
+                    }
+                    ?>
 
                 </div>
             </div>
@@ -66,8 +73,8 @@ if (isset($_GET["cat"]) && $_GET['do'] == 'showByCat') {
                     <ul class="list-unstyled">
                         <li> <i class="fas fa-info-circle"></i> <span>Description: </span><br> <?php echo $data["description"] ?> </li>
                         <li> <i class="fas fa-calendar-alt"></i> <span>Date: </span><?php echo  $data["date_debut"] ?></li>
-                        <li><i class="fas fa-tags"></i> <span>Category: </span><?php echo  $data["cat_name"] ?></li>
-                        <li><i class="fas fa-tags"></i> <span>Sub Category: </span><?php echo  $data["sub_name"] ?></li>
+                        <li><i class="fas fa-tags"></i> <span>Category: </span><?php echo  $data["12"] ?></li>
+                        <li><i class="fas fa-tags"></i> <span>Sub Category: </span><?php echo  $data["name"] ?></li>
                         <li> <i class="fas fa-map-marker"></i> <span>Place: </span><?php echo $data["address"] ?></li>
                         <li><i class="fas fa-user"></i> <span>Created by: </span><?php echo  $data["nickname"] ?></li>
                         <?php
