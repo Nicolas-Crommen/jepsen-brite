@@ -25,7 +25,14 @@ $events = $stmt->fetchAll();
 							<a class="showBtn btn btn-info" href="event_show.php?eventID=<?= $event["id_event"] ?>">More details +</a>
 						</div>
 						<div class="img-container">
-							<img src='layout/images/<?= $event["image"] ?>'>
+							<?php if ($event['image_type'] == 1) {
+                        		echo '<img src="' . $event['image'] . '">';
+                    		} elseif ($event['image_type'] == 2) {
+                        		echo '<iframe width="100%" height="100%" src="https://www.youtube.com/embed/' . $event['image'] . '" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+                    		} elseif ($event['image_type'] == 3) {
+                        		echo '<iframe src="https://player.vimeo.com/video/' . $event['image'] . '" width="100%" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>';
+                    		}
+                    	?>
 						</div>
 						<ul class="info-event list-unstyled">
 							<li> <strong> category : <?= $event['name'] ?></strong></li>
