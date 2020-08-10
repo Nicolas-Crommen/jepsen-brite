@@ -48,17 +48,15 @@ if (isset($_SESSION['userid'])) {
 				</select>
 
 			</p>
-			<p>Add your illustration :<br />
-  					<a href="#image">Image</a>
-  					<a href="#youtube">Youtube</i></a>
-  					<a href="#vimeo">Vimeo</a>		
-			</p>
-			<div class="illustrations">
-  			<p id="image"></p>
-  			<p id="youtube">youtube.com/</p>
-  			<p id="vimeo">vimeo.com/video/</p>
-  			<p id="default"></p><!-- by default, show no text -->
-  			<input class="form-control" type="text" name="image" autocomplete="off" placeholder="Complete the URL" required="required" />
+			<h3 class="text-center">Type of your illustration :<br /></h3>
+			<select name="image_type" class="form-control" required="required">
+				<option value="none" disabled="disabled" selected="selected">Choose one</option>
+				<option value="1">Image</option>
+				<option value="2">YouTube</option>
+				<option value="3">Vimeo</option>
+			</select>
+
+  			<input class="form-control" type="text" name="image" autocomplete="off" placeholder="Add your illustration URL (Image, YouTube video or Vimeo video)" required="required" />
 </div>
 				<input class="btn btn-info btn-block" type="submit" name="submit">
 			</form>
@@ -70,8 +68,11 @@ if (isset($_SESSION['userid'])) {
 	} elseif ($_GET['do'] == 'insert') {
 
 		if (filter_var($_POST['image'], FILTER_VALIDATE_URL)) {
-			$req = $con->prepare('INSERT INTO events(title,author,description,id_category,id_sub,image,date_debut ,address) VALUES (?, ?, ?, ?, ?, ? ,? ,?)');
-			$req->execute(array($_POST['title'], $_SESSION['userid'], $_POST['description'], $_GET['id'], $_POST['id_category'], $_POST['image'], $_POST['date_debut'], $_POST['address']));
+			if ($_POST['image_type']==1){$illus = $_POST['image'];}
+			elseif ($_POST['image_type']==2){$illus = substr($_POST['image'], -11);}
+			else {$illus = substr($_POST['image'], -9);}
+			$req = $con->prepare('INSERT INTO events(title,author,description,id_category,id_sub,image,image_type,date_debut ,address) VALUES (?, ?, ?, ?, ?, ? ,? ,?,?)');
+			$req->execute(array($_POST['title'], $_SESSION['userid'], $_POST['description'], $_GET['id'], $_POST['id_category'], $illus, $_POST['image_type'],$_POST['date_debut'], $_POST['address']));
 
 			echo '<p class="alert alert-info" align="center" color="green">Your event has been added to our database</p>';
 			header("refresh: 2; url = index.php");

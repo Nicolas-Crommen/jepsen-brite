@@ -25,7 +25,7 @@ if (isset($_GET["cat"]) && $_GET['do'] == 'showByCat') {
                             </div>
 
                             <div class="img-container">
-                                <img src='layout/images/<?php echo $event['image'] ?>'>
+                                <img src="$event['image'] ?>">
                             </div>
 
                             <ul class="info-event list-unstyled">
@@ -55,8 +55,11 @@ if (isset($_GET["cat"]) && $_GET['do'] == 'showByCat') {
         <div class="row">
             <div class="col-md-6">
                 <div class="img-container img-event">
-                    <img src='layout/images/<?php echo $data['image'] ?>'>
-
+                    <?php if ($data['image_type']==1){echo '<img src="' . $data['image'] . '">';}
+                    elseif ($data['image_type']==2){echo '<iframe width="560" height="315" src="https://www.youtube.com/embed/' . $data['image'] . '" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';}
+                    else {echo '<iframe src="https://player.vimeo.com/video/' . $data['image'] . '" width="560" height="315" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>';}
+                        ?>
+                    
                 </div>
             </div>
             <div class="col-md-6">
