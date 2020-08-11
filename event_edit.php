@@ -43,7 +43,16 @@ if (!empty($_GET) && $_GET['do'] == "edit") {
 
             <?php
 
-            ?> <input type="file" name="event-img">
+            ?>          
+            <h3 class="text-center">Type of your illustration :<br /></h3>
+            <select name="image_type" class="form-control" required="required">
+                <option value="none" disabled="disabled" selected="selected">Choose one</option>
+                <option value="1">Image</option>
+                <option value="2">YouTube</option>
+                <option value="3">Vimeo</option>
+            </select>
+
+            <input class="form-control" type="text" name="image" autocomplete="off" placeholder="Add your illustration URL (Image, YouTube video or Vimeo video)" required="required" />
             <input class="btn btn-info btn-block" type="submit" name="submit">
         </form>
 
@@ -69,10 +78,13 @@ if (!empty($_GET) && $_GET['do'] == "edit") {
         $newAdress = $_POST["address"];
         $newDesc = $_POST["description"];
         $newSubCat = $_POST["id_category"];
+        $newImage = $_POST["image"];
+        $newImageType = $_POST["image_type"];
 
 
-        $stmt = $con->prepare("UPDATE events SET title = ? , `description` = ? , date_debut = ? , `address` = ? , id_sub = ? WHERE id_event = ?  ");
-        $stmt->execute([$newTitle, $newDesc, $newDate, $newAdress, $newSubCat, $_GET['id']]);
+
+        $stmt = $con->prepare("UPDATE events SET title = ? , `description` = ? , date_debut = ? , `address` = ? , `image` = ? ,`image_type` = ? , id_sub = ? WHERE id_event = ?  ");
+        $stmt->execute([$newTitle, $newDesc, $newDate, $newAdress, $newImage, $newImageType, $newSubCat, $_GET['id']]);
         if ($stmt->rowCount() > 0) {
 
             echo "<div class='alert alert-success text-center'>Your event's information has been successfully updated</div>";
