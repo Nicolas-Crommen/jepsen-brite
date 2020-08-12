@@ -28,9 +28,9 @@ if (isset($_SESSION['userid'])) { ?>
                                 <?php if ($ce['image_type'] == 1) {
                                     echo '<img src="' . $ce['image'] . '">';
                                 } elseif ($ce['image_type'] == 2) {
-                                    echo '<iframe width="100%" height="100%" src="https://www.youtube.com/embed/' . $ce['image'] . '" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+                                    echo '<iframe width="100%" height="400px" src="https://www.youtube.com/embed/' . $ce['image'] . '" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
                                 } elseif ($ce['image_type'] == 3) {
-                                    echo '<iframe src="https://player.vimeo.com/video/' . $ce['image'] . '" width="100%" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>';
+                                    echo '<iframe src="https://player.vimeo.com/video/' . $ce['image'] . '" width="100%" height="400px" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>';
                                 }
                                 ?>
                             </div>
