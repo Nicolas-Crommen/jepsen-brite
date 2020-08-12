@@ -11,5 +11,5 @@ function isExist($data, $tableName, $value)
 
 function formatDate($date)
 {
-    return date("D\  d-M-Y H\h i\m ", strtotime($date));
+    return date("D\  d - M - Y , H\h:i\m", strtotime($date));
 }

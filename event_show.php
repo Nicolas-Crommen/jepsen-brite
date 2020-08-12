@@ -30,11 +30,9 @@ if (isset($_GET["cat"]) && $_GET['do'] == 'showByCat') {
 
                             <ul class="info-event list-unstyled">
                                 <li> <strong> category : <?php echo $event['name'] ?></strong></li>
-
                                 <li class="author">created by <?php echo $event['nickname'] ?> </li>
                                 <li class="date-event"> <?php echo formatDate($event['date_debut']) ?> </li>
                             </ul>
-
                         </div>
                     </div>
                 <?php } ?>
@@ -46,10 +44,9 @@ if (isset($_GET["cat"]) && $_GET['do'] == 'showByCat') {
 
 <?php } elseif (isset($_GET) && isset($_GET["eventID"])) {
     /*Afficher detailis lorqu'on click sur le buton --More details--*/
-    $stmt = $con->prepare("SELECT * from events e join categor c on e.id_category = c.id_category join categor sup on sup.id_category = e.id_sub join users us on us.id = e.author where e.id_event = ?");
+    $stmt = $con->prepare("SELECT e.id_event, e.description ,e.date_debut ,c.name as catName , sup.name as supName, e.title , e.address , e.image_type,e.image , us.nickname from events e join categor c on e.id_category = c.id_category join categor sup on sup.id_category = e.id_sub join users us on us.id = e.author where e.id_event = ?");
     $stmt->execute([$_GET["eventID"]]);
-    $data = $stmt->fetch();
-
+    $data = $stmt->fetch(PDO::FETCH_ASSOC);
 ?>
 
     <div class="container">
@@ -64,7 +61,6 @@ if (isset($_GET["cat"]) && $_GET['do'] == 'showByCat') {
                         echo '<iframe src="https://player.vimeo.com/video/' . $data['image'] . '" width="560" height="315" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>';
                     }
                     ?>
-
                 </div>
             </div>
             <div class="col-md-6">
@@ -73,9 +69,9 @@ if (isset($_GET["cat"]) && $_GET['do'] == 'showByCat') {
                     <h2><?php echo $data["title"] ?></h2>
                     <ul class="list-unstyled">
                         <li> <i class="fas fa-info-circle"></i> <span>Description: </span><br> <?php echo $data["description"] ?> </li>
-                        <li> <i class="fas fa-calendar-alt"></i> <span>Date: </span><?php echo  $data["date_debut"] ?></li>
-                        <li><i class="fas fa-tags"></i> <span>Category: </span><?php echo  $data["13"] ?></li>
-                        <li><i class="fas fa-tags"></i> <span>Sub Category: </span><?php echo  $data["name"] ?></li>
+                        <li> <i class="fas fa-calendar-alt"></i> <span>Date: </span><?php echo  formatDate($data["date_debut"])  ?></li>
+                        <li><i class="fas fa-tags"></i> <span>Category: </span><?php echo  $data["catName"] ?></li>
+                        <li><i class="fas fa-tags"></i> <span>Sub Category: </span><?php echo  $data["supName"] ?></li>
                         <li> <i class="fas fa-map-marker"></i> <span>Place: </span><?php echo $data["address"] ?></li>
                         <li><i class="fas fa-user"></i> <span>Created by: </span><?php echo  $data["nickname"] ?></li>
                         <?php
@@ -86,15 +82,15 @@ if (isset($_GET["cat"]) && $_GET['do'] == 'showByCat') {
                         <li><i class="fas fa-users"></i><span>Participants : </span><?php echo $participants ?></li>
 
 
-
                         <?php
-
                         $participationverification = $con->prepare('SELECT * FROM association WHERE participate_userid = ? && participate_eventid = ?');
                         $participationverification->execute(array($_SESSION['userid'], $_GET['eventID']));
                         $participation = $participationverification->rowCount();
 
 
-                        if ($data['date_debut'] <= date("Y-m-d H:i:s")) {
+                        if (
+                            $data['date_debut'] <= date("Y-m-d H:i:s")
+                        ) {
                             if ($participation == 1) { ?>
                                 <button disabled href="" class="btn btn-block btn-primary">You Participated</button>
                             <?php } else { ?>
@@ -128,9 +124,8 @@ if (isset($_GET["cat"]) && $_GET['do'] == 'showByCat') {
 
                         <form method='POST' action="<?php echo $_SERVER["PHP_SELF"] . '?eventID=' . $data["id_event"] ?>">
                             <textarea class="form-control" name="comment"></textarea>
-                            <input class="btn btn-primary" type="submit"></input>
+                            <input class="btn btn-primary" type="submit" value="Send"></input>
                         </form>
-
                     </div>
                 </div>
             </div>
@@ -148,7 +143,7 @@ if (isset($_GET["cat"]) && $_GET['do'] == 'showByCat') {
             }
             /*Si user n'est pas connecté on affiche un message*/
         } else {
-            echo " <p><a href='login.php'>Login or signup</a> to make a comment</p>";
+            echo " <p><a href='login.php'>Login or signup</a> to make a comment</pre>";
         } ?>
         <hr class="custom-hr">
 
@@ -167,7 +162,6 @@ if (isset($_GET["cat"]) && $_GET['do'] == 'showByCat') {
                 <div class="comment-box">
                     <div class="row">
                         <div class="col-md-2">
-
                             <img src='layout/images/imgprofile.png?>'>
                             <strong class="text-center"><?php echo $comment["nickname"] ?></strong>
                         </div>
@@ -187,8 +181,6 @@ if (isset($_GET["cat"]) && $_GET['do'] == 'showByCat') {
     header("location:index.php");
     exit();
 } ?>
-
-
 
 
 <?php
