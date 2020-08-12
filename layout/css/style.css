@@ -129,7 +129,8 @@ form i {
 }
 
 .img-container img {
-  height: 100%;
+  display: block;
+  height: 400px;
   width: 100%;
 }
 
@@ -138,7 +139,10 @@ form i {
   margin-bottom: 40px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
   position: relative;
-  min-height: 430px;
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .over {

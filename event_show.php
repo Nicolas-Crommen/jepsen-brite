@@ -9,6 +9,7 @@ if (isset($_GET["cat"]) && $_GET['do'] == 'showByCat') {
     $stmt = $con->prepare("select * from events ev join users u on ev.author = u.id join categor ca on ca.id_category = ev.id_category  where ca.name = ?");
     $stmt->execute([$_GET["cat"]]);
     $data = $stmt->fetchAll();
+
 ?>
     <section class="events">
         <div class="container">
