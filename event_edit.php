@@ -19,12 +19,9 @@ if (!empty($_GET) && $_GET['do'] == "edit") {
 
         <div class="text-center"><a class="btn btn-info" href=?do=changeCat&idEvent=<?php echo $_GET['edit_id_event'] ?>>Change the category</a></div>
 
-
-
-
-
         <form class="login-page" method="POST" action="<?php echo "?do=update&id=" . $_GET['edit_id_event'] . "" ?>" enctype="multipart/form-data">
             <input class="form-control" type="text" name="title" autocomplete="off" placeholder="Give your event a title" value="<?php echo $data['title']  ?>" required="required" />
+
             <input class="form-control" type="date" name="date_debut" placeholder="yyyy-mm-jj" value=<?php echo $data["date_debut"] ?>></p>
             <textarea class="form-control" name="description" rows="8" cols="45" autocomplete="off" placeholder="Explain what will take place" required="required"><?php echo $data["description"] ?></textarea>
             <p><input class="form-control" type="text" name="address" value="<?php echo $data["address"] ?>" autocomplete="off" placeholder="Indicate here the address of your event" required="required" /></p>
