@@ -1,5 +1,8 @@
 <?php
 
+$dns = 'mysql:host=xxx;dbname=xxx';
+$user = 'xxx';
+$pass = 'xxx';
 $option = array(
     PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
 );
@@ -11,4 +14,3 @@ try {
 
     echo 'failed to connect' . $e->getMessage();
 }
-
